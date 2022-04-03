@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "nombre": "Victor Lopez",
+            "email": "victor.lvaldez@alumnos.udg.mx",
+            "password": "123456",
+            "tipoUsusario": 1
+        },
+       {
+            "nombre": "Ruben Valdez",
+            "email": "victor@alumnos.udg.mx",
+            "password": "123456",
+            "tipoUsusario": 1
+        },
+        {
+            "nombre": "Luffy",
+            "email": "test@test.com",
+            "password": "123456",
+            "tipoUsusario": 1
+        }
+    ]
+}
