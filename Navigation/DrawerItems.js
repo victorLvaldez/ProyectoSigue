@@ -8,6 +8,7 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { showMessage } from "react-native-flash-message";
+import { auth } from '../config/firebase';
 
 export default function DrawerItems(props) {
   const navigation = useNavigation();
@@ -69,7 +70,13 @@ export default function DrawerItems(props) {
         <DrawerItem         
           label="Salir"
           labelStyle={{ fontWeight: 'bold'}}
-          onPress={() => Linking.openURL('https://google.com/help')}
+          onPress={ async () => {
+            try{
+              await auth.signOut();
+            } catch (e){
+              console.log(e)
+            }
+          }}
           icon= {(color) => <Icon color="#FF0000" name='log-out' type='entypo' style={styles.icon}/>}
         />
       </View>

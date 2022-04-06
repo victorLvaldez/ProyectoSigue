@@ -12,6 +12,7 @@ import HomeScreen from './Screens/HomeScreen';
 import StackNavigation from './Navigation/StackNavigation';
 import NewPost from './Screens/NewPost';
 import { LogBox } from 'react-native';
+import RootNavigation from './Navigation/RootNavigation';
 
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
@@ -19,10 +20,7 @@ LogBox.ignoreLogs([
 
 const App: () => Node = () => {
   return (
-    //<NavigationContainer>
-      //<DrawerStack />
-    //</NavigationContainer>
-    <Login />
+    <RootNavigation />
   );
 };
 
