@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, Button, TouchableOpacity, Platform, Image, Touc
 import PSInput from '../Components/PSInput';
 import PSButton from '../Components/PSButton';
 import { Input } from 'react-native-elements';
-//import auth from '@react-native-firebase/auth';
+import { auth } from '../config/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = ({navigation}) => {
 
@@ -17,7 +18,11 @@ const Login = ({navigation}) => {
     }
 
     const handleLogin = () => {
-       //creamos metodo de autenticación
+        if(email !== '' && password !== ''){
+            signInWithEmailAndPassword(auth, email, password)
+            .then(() => console.log("Ingreso Correctamente"))
+            .catch((err) => console.log(err))
+        }
     }
 
     return (
@@ -49,7 +54,7 @@ const Login = ({navigation}) => {
 
             <PSButton
                 buttonTitle="Entrar"
-                clickButton={() => navigation.navigate('DrawerStack') }
+                clickButton={handleLogin}
                 />
             
         </View>

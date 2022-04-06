@@ -19,10 +19,10 @@ LogBox.ignoreLogs([
 
 const App: () => Node = () => {
   return (
-    <NavigationContainer>
-      <DrawerStack />
-    </NavigationContainer>
-    //<NewPost />
+    //<NavigationContainer>
+      //<DrawerStack />
+    //</NavigationContainer>
+    <Login />
   );
 };
 
