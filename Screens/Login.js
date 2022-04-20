@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity, Platform, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity, Platform, Image, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import PSInput from '../Components/PSInput';
 import PSButton from '../Components/PSButton';
 import { Input } from 'react-native-elements';
@@ -7,21 +7,44 @@ import { auth } from '../config/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = ({navigation}) => {
-
-    const data = require('../Debug/Users.json')
-
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
-    const login = () => {
-        console.log("Click login button")
+    const createAlert = (error) => {
+        switch(error){
+            case 'auth/wrong-password':
+                Alert.alert(
+                    'Error en autentificación',
+                    'La contraseña es incorrecta',
+                    [
+                        {
+                            text: 'Ok'
+                        }
+                    ]
+                )
+            break;
+            case 'auth/user-not-found':
+                Alert.alert(
+                    'Error en autentificación',
+                    'Usuario no encontrado',
+                    [
+                        {
+                            text: 'Ok'
+                        }
+                    ]
+                )
+            break;
+        }
     }
+    
 
     const handleLogin = () => {
         if(email !== '' && password !== ''){
             signInWithEmailAndPassword(auth, email, password)
             .then(() => console.log("Ingreso Correctamente"))
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                createAlert(err.code);
+            })
         }
     }
 
