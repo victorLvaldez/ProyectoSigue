@@ -6,6 +6,10 @@ import { CheckBox, Icon } from "react-native-elements";
 import PSInput from "../Components/PSInput";
 import RadioButtonRN from 'radio-buttons-react-native';
 import { windowHeight } from "../Utils/Dimentions";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, database } from "../config/firebase";
+import { collection } from "firebase/firestore";
+
 
 
 
@@ -13,9 +17,9 @@ export default function SingUp() {
     const navigation = useNavigation();
     
     const [userName, setUserName] = useState('');
-    const [email, setEmail] = useState('')
+    const [emailS, setEmailS] = useState('')
     const [password, setPassword] = useState('');
-    const [age, setAge] = useState();
+    const [age, setAge] = useState('');
     const [inc, setInc] = useState('');
     const data = [
         {
@@ -32,12 +36,21 @@ export default function SingUp() {
         }
     ];
 
+    const handleSingUp = () => {
+        createUserWithEmailAndPassword(auth, emailS, password).then( credentials => {
+            return collection(database, 'users').doc(credentials.user.uid).set({
+                prueba: 'Esto es una prueba',
+            }) 
+        }).catch(err => console.log('Este es el error' + err))            
+    }
+
+
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
                 <TouchableOpacity 
                     style={styles.rightIconContainer}
-                    onPress={() => {console.log('Guardado')}}
+                    onPress={handleSingUp}
                 >
                     <Icon 
                         type='font-awesome'
@@ -66,8 +79,8 @@ export default function SingUp() {
                 autoCorrect={false}
             />
             <PSInput
-                labelValue={email}
-                onChangeText={(userEmail) => setEmail(userEmail)}
+                labelValue={emailS}
+                onChangeText={(useremailS) => setEmailS(useremailS)}
                 placeholderText="Correo electrónico"
                 iconType="fontisto"
                 iconName="email"

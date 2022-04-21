@@ -34,6 +34,28 @@ const Login = ({navigation}) => {
                     ]
                 )
             break;
+            case 'auth/invalid-email':
+                Alert.alert(
+                    'Error en autentificación',
+                    'correo electrónico inválido',
+                    [
+                        {
+                            text: 'Ok'
+                        }
+                    ]
+                )
+            break;
+            case 'emptyData':
+                Alert.alert(
+                    'Error en autentificación',
+                    'El dato Email/Contraseña no puede estar vacío',
+                    [
+                        {
+                            text: 'Ok'
+                        }
+                    ]
+                )
+            break;
         }
     }
     
@@ -43,8 +65,11 @@ const Login = ({navigation}) => {
             signInWithEmailAndPassword(auth, email, password)
             .then(() => console.log("Ingreso Correctamente"))
             .catch((err) => {
+                console.log(err.code)
                 createAlert(err.code);
             })
+        }else if( email == '' || password == ''){
+            createAlert('emptyData');
         }
     }
 
@@ -72,7 +97,7 @@ const Login = ({navigation}) => {
                 placeholderText="Contraseñas"
                 iconType="fontisto"//from icon pack
                 iconName="locked"
-                secureTextEntry={true}
+                isPassword={true}
             />
 
             <PSButton
